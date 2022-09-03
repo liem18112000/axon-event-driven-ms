@@ -1,0 +1,12 @@
+server:
+  port: ${SEVER_PORT:8761}
+eureka:
+  client:
+    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
+    register-with-eureka: ${EUREKA_CLIENT_REGISTRY:false}
+    service-url:
+      default-zone: ${EUREKA_HTTP_PROTOCOL:http}://${eureka.instance.hostname}:${server.port}/eureka
+  instance:
+    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP:true}
+    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
+  environment: ${EUREKA_ENVIRONMENT:develop}

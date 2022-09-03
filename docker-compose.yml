@@ -1,0 +1,77 @@
+version: '3.8'
+services:
+  gateway-database:
+    image: mysql:5.7
+    container_name: gateway-database
+    restart: always
+    networks:
+      - microservice
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$GATEWAY_DATABASE_PASS
+      - MYSQL_DATABASE=$GATEWAY_DATABASE_NAME
+    ports:
+      - $GATEWAY_DATABASE_SERVER_PORT:$GATEWAY_DATABASE_DOCKER_PORT
+
+  product-database:
+    container_name: product-database
+    image: postgres:14.1-alpine
+    env_file: ./.env
+    networks:
+      - microservice
+    ports:
+      - $PRODUCT_DATABASE_SERVER_PORT:$PRODUCT_DATABASE_DOCKER_PORT
+    environment:
+      - POSTGRES_USER=$PRODUCT_DATABASE_USER
+      - POSTGRES_DB=$PRODUCT_DATABASE_NAME
+      - POSTGRES_PASSWORD=$PRODUCT_DATABASE_PASS
+
+  order-database:
+    container_name: order-database
+    image: postgres:14.1-alpine
+    env_file: ./.env
+    networks:
+      - microservice
+    ports:
+      - $ORDER_DATABASE_SERVER_PORT:$ORDER_DATABASE_DOCKER_PORT
+    environment:
+      - POSTGRES_USER=$ORDER_DATABASE_USER
+      - POSTGRES_DB=$ORDER_DATABASE_NAME
+      - POSTGRES_PASSWORD=$ORDER_DATABASE_PASS
+
+  axon-server:
+    container_name: axon-server
+    image: axoniq/axonserver:latest-dev
+    hostname: axon-server
+    env_file: ./.env
+    volumes:
+      - axonserver-data:/axonserver/data
+      - axonserver-events:/axonserver/events
+      - axonserver-config:/axonserver/config:ro
+    ports:
+      - $AXON_UI_SERVER_PORT:$AXON_UI_DOCKER_PORT
+      - $AXON_GRPC_SERVER_PORT:$AXON_GRPC_DOCKER_PORT
+    networks:
+      - microservice
+networks:
+  microservice:
+    driver: bridge
+volumes:
+  axonserver-data:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/axon-server-se/data
+  axonserver-events:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/axon-server-se/events
+  axonserver-config:
+    driver: local
+    driver_opts:
+      o: bind
+      type: none
+      device: ${PWD}/axon-server-se/config

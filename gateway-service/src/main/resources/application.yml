@@ -1,0 +1,53 @@
+server:
+  port: ${SERVER_PORT:5000}
+  forward-headers-strategy: framework
+logging:
+  file:
+    path: ${LOG_PATH:logs}
+    name: ${logging.file.path}/${LOG_FILE:application}.log
+  logback:
+    rollingpolicy:
+      file-name-pattern: ${LOG_FILE:application}.%d{dd-MM-yyyy}.%i.log
+      max-file-size: ${LOG_MAX_FILE_SIZE:10MB}
+      max-history: ${LOG_MAX_HISTORY:20}
+  pattern:
+    console: "%green(%d{${ISO8601}}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
+spring:
+  application:
+    name: ${APPLICATION_NAME:gateway-service}
+  r2dbc:
+    url: r2dbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:13306}/${DATABASE_NAME:gateway}?serverTimezone=UTC&useLegacyDatetimeCode=false
+    username: ${DATABASE_USER:root}
+    password: ${DATABASE_PASS:root}
+    properties:
+      sslMode: DISABLED
+    pool:
+      enabled: true
+      initial-size: 22
+      max-size: 30
+      max-idle-time: 5m
+      validation-query: SELECT 1
+  liquibase:
+    enabled: ${LIQUIBASE_ENABLED:true}
+    change-log: ${LIQUIBASE_CHANGELOG:classpath:/db/changelog-master.xml}
+    contexts: ${LIQUIBASE_CONTEXTS:default}
+  cloud:
+    gateway:
+      globalcors:
+        add-to-simple-url-handler-mapping: true
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods: GET, POST, PUT, DELETE, OPTIONS
+            allowedHeaders: Origin, Accept, Content-Type, X-Requested-With, X-XSRF-TOKEN, Authentication, Authorization, Version
+eureka:
+  client:
+    service-url:
+      default-zone: ${EUREKA_HTTP_PROTOCOL:http}://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
+  instance:
+    instance-id: ${spring.application.name}:${random.value}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
