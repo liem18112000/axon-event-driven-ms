@@ -1,10 +1,14 @@
 package com.liem.ms.productservice.core.domain;
 
+import com.liem.ms.coreservice.commands.ReserveProductCommand;
+import com.liem.ms.coreservice.events.ProductReservedEvent;
 import com.liem.ms.productservice.command.commands.common.DeleteCommand;
 import com.liem.ms.productservice.command.commands.product.CreateProductCommand;
+import com.liem.ms.productservice.command.commands.product.SupplyProductCommand;
 import com.liem.ms.productservice.command.commands.product.UpdateProductCommand;
 import com.liem.ms.productservice.command.event.common.DeletedEvent;
 import com.liem.ms.productservice.command.event.product.ProductCreatedEvent;
+import com.liem.ms.productservice.command.event.product.ProductSuppliedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
 import java.io.Serializable;
 import java.time.Instant;
@@ -72,7 +76,71 @@ public class ProductAggregate implements Serializable {
   /**
    * The Price.
    */
-  private Float price;
+  protected Float price;
+
+  /**
+   * The Quantity.
+   */
+  protected Integer quantity;
+
+  /**
+   * Reserve product.
+   *
+   * @param command the command
+   */
+  @CommandHandler
+  public void reserveProduct(@NotNull @Valid ReserveProductCommand command) {
+    log.trace("Product aggregate command handle: {}", command);
+    if (this.getQuantity() < command.getQuantity()) {
+      throw new IllegalArgumentException("Insufficient product stock");
+    }
+    final var event = ProductReservedEvent.builder()
+        .id(command.getProductId())
+        .quantity(command.getQuantity())
+        .orderId(command.getOrderId())
+        .userId(command.getUserId())
+        .build();
+    AggregateLifecycle.apply(event);
+  }
+
+  /**
+   * On reserve.
+   *
+   * @param event the event
+   */
+  @EventSourcingHandler
+  public void onReserve(final @NotNull ProductReservedEvent event) {
+    log.trace("Product aggregate event sourcing handle: {}", event);
+    this.setId(event.getId());
+    this.setQuantity(this.getQuantity() - event.getQuantity());
+  }
+
+  /**
+   * Supply product.
+   *
+   * @param command the command
+   */
+  @CommandHandler
+  public void supplyProduct(@NotNull @Valid SupplyProductCommand command) {
+    log.trace("Product aggregate command handle: {}", command);
+    final var event = ProductSuppliedEvent.builder()
+        .id(command.getProductId())
+        .quantity(command.getQuantity())
+        .build();
+    AggregateLifecycle.apply(event);
+  }
+
+  /**
+   * On supply.
+   *
+   * @param event the event
+   */
+  @EventSourcingHandler
+  public void onSupply(final @NotNull ProductSuppliedEvent event) {
+    log.trace("Product aggregate event sourcing handle: {}", event);
+    this.setId(event.getId());
+    this.setQuantity(this.getQuantity() + event.getQuantity());
+  }
 
   /**
    * Instantiates a new Product aggregate.
@@ -87,6 +155,7 @@ public class ProductAggregate implements Serializable {
         .name(command.getName())
         .description(command.getDescription())
         .price(command.getPrice())
+        .quantity(command.getQuantity())
         .build();
     AggregateLifecycle.apply(event);
   }
@@ -102,11 +171,12 @@ public class ProductAggregate implements Serializable {
     this.setId(event.getId());
     this.setName(event.getName());
     this.setPrice(event.getPrice());
+    this.setQuantity(event.getQuantity());
     this.setDescription(event.getDescription());
   }
 
   /**
-   * Instantiates a new Product aggregate.
+   * Delete.
    *
    * @param command the command
    */
@@ -130,7 +200,7 @@ public class ProductAggregate implements Serializable {
   }
 
   /**
-   * Instantiates a new Product aggregate.
+   * Update.
    *
    * @param command the command
    */

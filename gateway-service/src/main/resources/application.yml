@@ -28,6 +28,9 @@ spring:
       max-idle-time: 5m
       validation-query: SELECT 1
   liquibase:
+    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:13306}/${DATABASE_NAME:gateway}?serverTimezone=UTC&useLegacyDatetimeCode=false
+    user: ${DATABASE_USER:root}
+    password: ${DATABASE_PASS:root}
     enabled: ${LIQUIBASE_ENABLED:true}
     change-log: ${LIQUIBASE_CHANGELOG:classpath:/db/changelog-master.xml}
     contexts: ${LIQUIBASE_CONTEXTS:default}
@@ -43,7 +46,7 @@ spring:
 eureka:
   client:
     service-url:
-      default-zone: ${EUREKA_HTTP_PROTOCOL:http}://${EUREKA_SERVER_HOST:localhost}:${EUREKA_SERVER_PORT:8761}/eureka
+      default-zone: http://eureka-master:8761/eureka
   instance:
     instance-id: ${spring.application.name}:${random.value}
 management:

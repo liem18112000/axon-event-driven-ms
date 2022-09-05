@@ -25,6 +25,7 @@ public class ProductCommandMapper {
         .name(dto.getName())
         .price(dto.getPrice())
         .description(dto.getDescription())
+        .quantity(dto.getQuantity())
         .build();
   }
 

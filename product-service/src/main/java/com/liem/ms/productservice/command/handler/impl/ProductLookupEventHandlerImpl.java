@@ -1,12 +1,13 @@
 package com.liem.ms.productservice.command.handler.impl;
 
-import static com.liem.ms.productservice.command.config.AppConstants.PRODUCT_GROUP;
+import static com.liem.ms.productservice.core.config.AppConstants.PRODUCT_GROUP;
 
+import com.liem.ms.coreservice.events.ProductReservedEvent;
 import com.liem.ms.productservice.command.entity.ProductLookupEntity;
 import com.liem.ms.productservice.command.event.common.DeletedEvent;
 import com.liem.ms.productservice.command.event.product.ProductCreatedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
-import com.liem.ms.productservice.command.handler.ProductEventHandler;
+import com.liem.ms.productservice.core.handler.ProductEventHandler;
 import com.liem.ms.productservice.command.mapper.ProductLookupEntityMapper;
 import com.liem.ms.productservice.command.repository.ProductLookupRepository;
 import javax.persistence.EntityNotFoundException;
@@ -80,6 +81,16 @@ public class ProductLookupEventHandlerImpl implements ProductEventHandler {
     final var entity = this.getLookupEntityById(event.getId());
     log.info("Delete look up entity: {}", entity);
     this.repository.delete(entity);
+  }
+
+  /**
+   * On reserved.
+   *
+   * @param event the event
+   */
+  @Override
+  public void onReserved(ProductReservedEvent event) {
+
   }
 
   /**

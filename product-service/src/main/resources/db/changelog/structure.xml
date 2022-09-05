@@ -5,7 +5,7 @@
   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
 
   <changeSet id="1" author="liem" runOnChange="true" runInTransaction="false" labels="create_product_table">
-    <sqlFile path="../sql/structure/create_order_table.sql" endDelimiter="\nGO" relativeToChangelogFile="true" />
+    <sqlFile path="../sql/structure/create_product_table.sql" endDelimiter="\nGO" relativeToChangelogFile="true" />
   </changeSet>
 
   <changeSet id="2" author="liem" runOnChange="true" runInTransaction="false" labels="create_product_lookup_table">

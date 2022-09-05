@@ -1,6 +1,6 @@
 package com.liem.ms.productservice.command.config;
 
-import static com.liem.ms.productservice.command.config.AppConstants.PRODUCT_GROUP;
+import static com.liem.ms.productservice.core.config.AppConstants.PRODUCT_GROUP;
 
 import com.liem.ms.productservice.command.handler.impl.ProductEventErrorHandler;
 import lombok.extern.slf4j.Slf4j;

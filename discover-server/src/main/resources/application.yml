@@ -1,12 +1,46 @@
+spring:
+  profiles:
+    active: ${ACTIVE_PROFILE:default}
 server:
-  port: ${SEVER_PORT:8761}
+  port: 8761
 eureka:
   client:
-    fetch-registry: ${EUREKA_CLIENT_FETCH_REGISTRY:false}
-    register-with-eureka: ${EUREKA_CLIENT_REGISTRY:false}
+    fetch-registry: false
+    register-with-eureka: false
     service-url:
-      default-zone: ${EUREKA_HTTP_PROTOCOL:http}://${eureka.instance.hostname}:${server.port}/eureka
+      default-zone: http://eureka-master:8761/eureka
   instance:
-    prefer-ip-address: ${EUREKA_INSTANCE_PREFER_IP:true}
-    hostname: ${EUREKA_INSTANCE_HOSTNAME:localhost}
+    hostname: eureka-master
+    appname: eureka-cluster
   environment: ${EUREKA_ENVIRONMENT:develop}
+---
+spring:
+  profiles: peer1
+eureka:
+  instance:
+    hostname: eureka-peer-1
+    appname: eureka-cluster
+    prefer-ip-address: false
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-master:8761/eureka,http://eureka-peer-2:8763/eureka
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: 8762
+
+---
+spring:
+  profiles: peer2
+eureka:
+  instance:
+    hostname: eureka-peer-2
+    appname: eureka-cluster
+    prefer-ip-address: false
+  client:
+    serviceUrl:
+      defaultZone: http://eureka-master:8761/eureka,http://eureka-peer-1:8762/eureka
+    register-with-eureka: true
+    fetch-registry: true
+server:
+  port: 8763

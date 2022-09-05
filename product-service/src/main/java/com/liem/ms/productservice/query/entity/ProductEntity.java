@@ -1,10 +1,15 @@
 package com.liem.ms.productservice.query.entity;
 
+import com.liem.ms.coreservice.events.ProductReservedEvent;
+import com.liem.ms.productservice.command.event.product.ProductSuppliedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
+import java.io.Serializable;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +28,7 @@ import org.hibernate.Hibernate;
 @ToString
 @RequiredArgsConstructor
 @Slf4j
-public class ProductEntity extends BaseEntity<String> {
+public class ProductEntity implements Serializable  {
 
   /**
    * The constant serialVersionUID.
@@ -31,10 +36,59 @@ public class ProductEntity extends BaseEntity<String> {
   private static final long serialVersionUID = -6148557352562843454L;
 
   /**
+   * The Id.
+   */
+  @Id
+  @Column(name = "id", nullable = false)
+  private String id;
+
+  /**
+   * The Name.
+   */
+  @Column(name = "name")
+  private String name;
+
+  /**
+   * The Description.
+   */
+  @Column(name = "description", columnDefinition = "TEXT")
+  private String description;
+
+  /**
+   * The Updated at.
+   */
+  @Column(name = "updated_at")
+  private String updatedAt = Instant.now().toString();
+
+  /**
+   * The Created at.
+   */
+  @Column(name = "created_at")
+  private String createdAt = Instant.now().toString();
+
+  /**
+   * The Version.
+   */
+  @Column(name = "version")
+  private int version = 1;
+
+  /**
+   * The Is active.
+   */
+  @Column(name = "is_active")
+  private boolean isActive = true;
+
+  /**
    * The Price.
    */
   @Column(name = "price")
   private Float price;
+
+  /**
+   * The Quantity.
+   */
+  @Column(name = "quantity")
+  private Integer quantity;
 
   /**
    * Update product entity.
@@ -46,6 +100,32 @@ public class ProductEntity extends BaseEntity<String> {
     this.setName(event.getName());
     this.setDescription(event.getDescription());
     this.setPrice(event.getPrice());
+    this.setUpdatedAt(LocalDateTime.now().toString());
+    this.setVersion(this.getVersion() + 1);
+    return this;
+  }
+
+  /**
+   * Supply product entity.
+   *
+   * @param event the event
+   * @return the product entity
+   */
+  public ProductEntity supply(ProductSuppliedEvent event) {
+    this.setQuantity(this.getQuantity() + event.getQuantity());
+    this.setUpdatedAt(LocalDateTime.now().toString());
+    this.setVersion(this.getVersion() + 1);
+    return this;
+  }
+
+  /**
+   * Reserve product entity.
+   *
+   * @param event the event
+   * @return the product entity
+   */
+  public ProductEntity reserve(ProductReservedEvent event) {
+    this.setQuantity(this.getQuantity() - event.getQuantity());
     this.setUpdatedAt(LocalDateTime.now().toString());
     this.setVersion(this.getVersion() + 1);
     return this;

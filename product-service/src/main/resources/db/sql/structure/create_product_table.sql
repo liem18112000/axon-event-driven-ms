@@ -8,5 +8,6 @@ CREATE TABLE products
     version     INTEGER,
     is_active   BOOLEAN,
     price       FLOAT,
+    quantity    INTEGER,
     CONSTRAINT pk_products PRIMARY KEY (id)
 );
