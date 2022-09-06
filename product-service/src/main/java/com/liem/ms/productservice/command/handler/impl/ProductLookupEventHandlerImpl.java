@@ -2,14 +2,15 @@ package com.liem.ms.productservice.command.handler.impl;
 
 import static com.liem.ms.productservice.core.config.AppConstants.PRODUCT_GROUP;
 
+import com.liem.ms.coreservice.events.ProductCancelReserveEvent;
 import com.liem.ms.coreservice.events.ProductReservedEvent;
 import com.liem.ms.productservice.command.entity.ProductLookupEntity;
 import com.liem.ms.productservice.command.event.common.DeletedEvent;
 import com.liem.ms.productservice.command.event.product.ProductCreatedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
-import com.liem.ms.productservice.core.handler.ProductEventHandler;
 import com.liem.ms.productservice.command.mapper.ProductLookupEntityMapper;
 import com.liem.ms.productservice.command.repository.ProductLookupRepository;
+import com.liem.ms.productservice.core.handler.ProductEventHandler;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -89,8 +90,28 @@ public class ProductLookupEventHandlerImpl implements ProductEventHandler {
    * @param event the event
    */
   @Override
+  @EventHandler
   public void onReserved(ProductReservedEvent event) {
+    log.trace("Product lookup handle: {}", event);
+    final var entity = this.getLookupEntityById(event.getId())
+        .reserve(event);
+    log.info("Reserve look up entity: {}", entity);
+    this.repository.save(entity);
+  }
 
+  /**
+   * On cancel reservation.
+   *
+   * @param event the event
+   */
+  @Override
+  @EventHandler
+  public void onCancelReservation(ProductCancelReserveEvent event) {
+    log.trace("Product lookup handle: {}", event);
+    final var entity = this.getLookupEntityById(event.getProductId())
+        .cancelReservation(event);
+    log.info("Cancel reservation look up entity: {}", entity);
+    this.repository.save(entity);
   }
 
   /**

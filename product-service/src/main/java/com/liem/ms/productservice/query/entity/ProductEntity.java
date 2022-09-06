@@ -1,5 +1,6 @@
 package com.liem.ms.productservice.query.entity;
 
+import com.liem.ms.coreservice.events.ProductCancelReserveEvent;
 import com.liem.ms.coreservice.events.ProductReservedEvent;
 import com.liem.ms.productservice.command.event.product.ProductSuppliedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
@@ -112,6 +113,19 @@ public class ProductEntity implements Serializable  {
    * @return the product entity
    */
   public ProductEntity supply(ProductSuppliedEvent event) {
+    this.setQuantity(this.getQuantity() + event.getQuantity());
+    this.setUpdatedAt(LocalDateTime.now().toString());
+    this.setVersion(this.getVersion() + 1);
+    return this;
+  }
+
+  /**
+   * Cancel reservation product entity.
+   *
+   * @param event the event
+   * @return the product entity
+   */
+  public ProductEntity cancelReservation(ProductCancelReserveEvent event) {
     this.setQuantity(this.getQuantity() + event.getQuantity());
     this.setUpdatedAt(LocalDateTime.now().toString());
     this.setVersion(this.getVersion() + 1);

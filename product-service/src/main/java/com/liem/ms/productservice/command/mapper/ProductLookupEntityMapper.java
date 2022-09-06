@@ -2,7 +2,6 @@ package com.liem.ms.productservice.command.mapper;
 
 import com.liem.ms.productservice.command.entity.ProductLookupEntity;
 import com.liem.ms.productservice.command.event.product.ProductCreatedEvent;
-import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
 import javax.validation.constraints.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -22,6 +21,7 @@ public class ProductLookupEntityMapper {
     var entity = new ProductLookupEntity();
     entity.setProductId(event.getId());
     entity.setProductName(event.getName());
+    entity.setProductQuantity(event.getQuantity());
     return entity;
   }
 

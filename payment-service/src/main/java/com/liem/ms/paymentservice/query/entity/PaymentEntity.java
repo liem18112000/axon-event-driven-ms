@@ -1,9 +1,12 @@
 package com.liem.ms.paymentservice.query.entity;
 
+import com.liem.ms.paymentservice.core.PaymentStatus;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
@@ -27,14 +30,32 @@ public class PaymentEntity implements Serializable {
    * The constant serialVersionUID.
    */
   private static final long serialVersionUID = -8495495152790348108L;
+
   /**
    * The Order id.
    */
-  @Column(name = "order_id")
+  @Column(name = "order_id", nullable = false)
   public String orderId;
+
+  /**
+   * The Id.
+   */
   @Id
   @Column(name = "id")
   private String id;
+
+  /**
+   * The Status.
+   */
+  @Enumerated(EnumType.STRING)
+  @Column(name = "status", nullable = false)
+  private PaymentStatus status;
+
+  /**
+   * The Cancel reason.
+   */
+  @Column(name = "cancel_reason", columnDefinition = "TEXT")
+  private String cancelReason;
 
   /**
    * Equals boolean.

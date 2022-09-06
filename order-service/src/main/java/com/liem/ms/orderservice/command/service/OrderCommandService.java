@@ -1,6 +1,7 @@
 package com.liem.ms.orderservice.command.service;
 
 import com.liem.ms.orderservice.core.dto.OrderDto;
+import com.liem.ms.orderservice.core.dto.OrderSummary;
 import java.io.Serializable;
 
 /**
@@ -16,15 +17,7 @@ public interface OrderCommandService<ID extends Serializable> {
    * @param dto the dto
    * @return the order dto
    */
-  OrderDto<ID> create(OrderDto<ID> dto);
-
-  /**
-   * Approve order dto.
-   *
-   * @param dto the dto
-   * @return the order dto
-   */
-  OrderDto<ID> approve(OrderDto<ID> dto);
+  OrderSummary create(OrderDto<ID> dto);
 
   /**
    * Reject order dto.
@@ -32,13 +25,5 @@ public interface OrderCommandService<ID extends Serializable> {
    * @param dto the dto
    * @return the order dto
    */
-  OrderDto<ID> reject(OrderDto<ID> dto);
-
-  /**
-   * Delete order dto.
-   *
-   * @param dto the dto
-   * @return the order dto
-   */
-  OrderDto<ID> delete(OrderDto<ID> dto);
+  OrderSummary reject(OrderDto<ID> dto);
 }

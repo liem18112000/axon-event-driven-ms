@@ -1,7 +1,7 @@
 package com.liem.ms.productservice.query.handler.impl;
 
-import com.liem.ms.productservice.query.entity.ProductEntity;
 import com.liem.ms.productservice.core.handler.ProductQueryHandler;
+import com.liem.ms.productservice.query.entity.ProductEntity;
 import com.liem.ms.productservice.query.queries.FindProductQuery;
 import com.liem.ms.productservice.query.repository.ProductRepository;
 import java.util.List;

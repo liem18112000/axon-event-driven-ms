@@ -4,7 +4,6 @@ import java.io.Serializable;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import org.axonframework.modelling.command.TargetAggregateIdentifier;
 
 /**
  * The type Product supplied event.

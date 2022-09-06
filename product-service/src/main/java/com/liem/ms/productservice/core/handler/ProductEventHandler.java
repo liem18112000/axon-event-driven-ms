@@ -1,5 +1,6 @@
 package com.liem.ms.productservice.core.handler;
 
+import com.liem.ms.coreservice.events.ProductCancelReserveEvent;
 import com.liem.ms.coreservice.events.ProductReservedEvent;
 import com.liem.ms.productservice.command.event.common.DeletedEvent;
 import com.liem.ms.productservice.command.event.product.ProductCreatedEvent;
@@ -37,5 +38,12 @@ public interface ProductEventHandler {
    * @param event the event
    */
   void onReserved(ProductReservedEvent event);
+
+  /**
+   * On cancel reservation.
+   *
+   * @param event the event
+   */
+  void onCancelReservation(ProductCancelReserveEvent event);
 
 }

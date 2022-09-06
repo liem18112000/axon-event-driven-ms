@@ -1,4 +1,4 @@
-package com.liem.ms.orderservice.saga;
+package com.liem.ms.orderservice.saga.service;
 
 import com.liem.ms.orderservice.command.events.OrderCreatedEvent;
 
@@ -13,11 +13,4 @@ public interface ReserveProductService {
    * @param event the event
    */
   void handleReserveProduct(OrderCreatedEvent event);
-
-  /**
-   * Handle failed product reserve.
-   *
-   * @param event the event
-   */
-  void handleFailedProductReserve(OrderCreatedEvent event);
 }

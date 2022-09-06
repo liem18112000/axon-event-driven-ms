@@ -23,6 +23,7 @@ public class ProductDtoMapper {
         .name(entity.getName())
         .description(entity.getDescription())
         .price(entity.getPrice())
+        .quantity(entity.getQuantity())
         .createdAt(entity.getCreatedAt())
         .updatedAt(entity.getUpdatedAt())
         .build();

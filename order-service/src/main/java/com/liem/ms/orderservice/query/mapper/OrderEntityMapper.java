@@ -1,4 +1,4 @@
-package com.liem.ms.orderservice.command.mapper;
+package com.liem.ms.orderservice.query.mapper;
 
 import com.liem.ms.orderservice.command.events.OrderCreatedEvent;
 import com.liem.ms.orderservice.query.entity.OrderEntity;

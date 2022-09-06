@@ -1,5 +1,8 @@
 package com.liem.ms.productservice.command.entity;
 
+import com.liem.ms.coreservice.events.ProductCancelReserveEvent;
+import com.liem.ms.coreservice.events.ProductReservedEvent;
+import com.liem.ms.productservice.command.event.product.ProductSuppliedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -36,6 +39,12 @@ public class ProductLookupEntity {
   private String productName;
 
   /**
+   * The Product quantity.
+   */
+  @Column(name = "product_quantity")
+  private Integer productQuantity;
+
+  /**
    * Update product name product lookup entity.
    *
    * @param event the event
@@ -43,6 +52,39 @@ public class ProductLookupEntity {
    */
   public ProductLookupEntity updateProductName(final @NotNull ProductUpdatedEvent event) {
     this.setProductName(event.getName());
+    return this;
+  }
+
+  /**
+   * Supply product entity.
+   *
+   * @param event the event
+   * @return the product entity
+   */
+  public ProductLookupEntity supply(ProductSuppliedEvent event) {
+    this.setProductQuantity(this.getProductQuantity() + event.getQuantity());
+    return this;
+  }
+
+  /**
+   * Cancel reservation product entity.
+   *
+   * @param event the event
+   * @return the product entity
+   */
+  public ProductLookupEntity cancelReservation(ProductCancelReserveEvent event) {
+    this.setProductQuantity(this.getProductQuantity() + event.getQuantity());
+    return this;
+  }
+
+  /**
+   * Reserve product entity.
+   *
+   * @param event the event
+   * @return the product entity
+   */
+  public ProductLookupEntity reserve(ProductReservedEvent event) {
+    this.setProductQuantity(this.getProductQuantity() - event.getQuantity());
     return this;
   }
 }

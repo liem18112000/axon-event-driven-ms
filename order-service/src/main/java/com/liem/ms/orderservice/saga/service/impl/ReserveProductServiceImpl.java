@@ -1,8 +1,9 @@
-package com.liem.ms.orderservice.saga.impl;
+package com.liem.ms.orderservice.saga.service.impl;
 
 import com.liem.ms.orderservice.command.events.OrderCreatedEvent;
 import com.liem.ms.orderservice.command.mapper.OrderCommandMapper;
-import com.liem.ms.orderservice.saga.ReserveProductService;
+import com.liem.ms.orderservice.saga.service.CancelProductReservationService;
+import com.liem.ms.orderservice.saga.service.ReserveProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.axonframework.commandhandling.gateway.CommandGateway;
@@ -27,6 +28,11 @@ public class ReserveProductServiceImpl implements ReserveProductService {
   private final OrderCommandMapper mapper;
 
   /**
+   * The Cancel product reservation service.
+   */
+  private final CancelProductReservationService cancelProductReservationService;
+
+  /**
    * Handle reserve product.
    *
    * @param event the event
@@ -38,21 +44,13 @@ public class ReserveProductServiceImpl implements ReserveProductService {
       log.trace("Command message: {}", commandMessage);
       log.trace("Command result message: {}", commandResultMessage);
       if (commandResultMessage.isExceptional()) {
-        log.error("Reserved product failed");
-        this.handleFailedProductReserve(event);
+        final var rejectReason = commandResultMessage.exceptionResult().getMessage();
+        log.error("Reserved product failed: {}", rejectReason);
+        this.cancelProductReservationService.handleCancelProductReservation(event, rejectReason);
       } else {
-        log.info("Reserved product completed");
+        log.info("Reserved product '{}' with reserved quantity {} items",
+            event.getProductId(), event.getQuantity());
       }
     });
-  }
-
-  /**
-   * Handle failed product reserve.
-   *
-   * @param event the event
-   */
-  @Override
-  public void handleFailedProductReserve(OrderCreatedEvent event) {
-
   }
 }

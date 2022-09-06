@@ -2,6 +2,7 @@ CREATE TABLE "products_lookup"
 (
     product_id   VARCHAR(255) NOT NULL,
     product_name VARCHAR(255),
+    product_quantity INTEGER,
     CONSTRAINT "pk_products-lookup" PRIMARY KEY (product_id)
 );
 

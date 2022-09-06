@@ -41,7 +41,7 @@ public class OrderDto<ID extends Serializable> {
    * The Quantity.
    */
   @Min(value = 1, message = "Quantity cannot be lower than 1")
-  @Max(value = 5, message = "Quantity cannot be larger than 5")
+  @Max(value = 500, message = "Quantity cannot be larger than 5")
   private int quantity;
 
   /**
@@ -49,5 +49,15 @@ public class OrderDto<ID extends Serializable> {
    */
   @NotBlank(message = "Order addressId is a required field")
   private String addressId;
+
+  /**
+   * The Reject reason.
+   */
+  private String rejectReason;
+
+  /**
+   * The Status.
+   */
+  private String status;
 
 }

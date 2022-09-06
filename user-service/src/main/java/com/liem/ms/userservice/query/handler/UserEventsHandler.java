@@ -4,13 +4,17 @@ import com.liem.ms.coreservice.models.PaymentDetails;
 import com.liem.ms.coreservice.models.User;
 import com.liem.ms.coreservice.queries.FetchUserPaymentDetailsQuery;
 import javax.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.axonframework.queryhandling.QueryHandler;
 import org.springframework.stereotype.Component;
 
 /**
  * The type User events handler.
  */
+@Slf4j
 @Component
+@AllArgsConstructor
 public class UserEventsHandler {
 
     /**
@@ -21,6 +25,7 @@ public class UserEventsHandler {
      */
     @QueryHandler
     public User findUserPaymentDetails(final @NotNull FetchUserPaymentDetailsQuery query) {
+        log.info("Find user payment detail query handle; {}", query);
         final var paymentDetails = PaymentDetails.builder()
                 .cardNumber("123Card")
                 .cvv("123")

@@ -5,6 +5,8 @@
  */
 package com.liem.ms.orderservice.query.entity;
 
+import com.liem.ms.orderservice.command.events.OrderApprovedEvent;
+import com.liem.ms.orderservice.command.events.OrderRejectedEvent;
 import com.liem.ms.orderservice.core.model.OrderStatus;
 import java.io.Serializable;
 import java.util.Objects;
@@ -15,7 +17,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
@@ -65,10 +66,39 @@ public class OrderEntity implements Serializable {
   private String addressId;
 
   /**
+   * The Reject reason.
+   */
+  @Column(columnDefinition = "TEXT")
+  private String rejectReason;
+
+  /**
    * The Order status.
    */
   @Enumerated(EnumType.STRING)
   private OrderStatus orderStatus;
+
+  /**
+   * Update status order entity.
+   *
+   * @param event the event
+   * @return the order entity
+   */
+  public OrderEntity updateStatus(OrderApprovedEvent event) {
+    this.setOrderStatus(event.getOrderStatus());
+    return this;
+  }
+
+  /**
+   * Update status order entity.
+   *
+   * @param event the event
+   * @return the order entity
+   */
+  public OrderEntity updateStatus(OrderRejectedEvent event) {
+    this.setOrderStatus(event.getOrderStatus());
+    this.setRejectReason(event.getReason());
+    return this;
+  }
 
   /**
    * Equals boolean.

@@ -47,4 +47,18 @@ public class ProductLookupServiceImpl implements ProductLookupService {
     return lookupEntity.isPresent()
         && !Objects.equals(lookupEntity.get().getProductId(), productId);
   }
+
+  /**
+   * Is reserve sufficient boolean.
+   *
+   * @param productId        the product id
+   * @param reservedQuantity the reserved quantity
+   * @return the boolean
+   */
+  @Override
+  public boolean isReserveSufficient(String productId, Integer reservedQuantity) {
+    final var lookupEntity = this.repository.findByProductId(productId);
+    return lookupEntity.isPresent()
+        && lookupEntity.get().getProductQuantity().compareTo(reservedQuantity) >= 0;
+  }
 }

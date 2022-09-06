@@ -1,0 +1,154 @@
+2022-09-05 19:30:40.287  INFO 16128 --- [restartedMain] c.l.m.u.UserServiceApplication           : Starting UserServiceApplication using Java 11.0.12 on DESKTOP-6L79JE3 with PID 16128 (D:\Work\event-driven-ms\user-service\target\classes started by Liem in D:\Work\event-driven-ms)
+2022-09-05 19:30:40.288 DEBUG 16128 --- [restartedMain] c.l.m.u.UserServiceApplication           : Running with Spring Boot v2.7.3, Spring v5.3.22
+2022-09-05 19:30:40.288  INFO 16128 --- [restartedMain] c.l.m.u.UserServiceApplication           : The following 1 profile is active: "dev"
+2022-09-05 19:30:40.510  INFO 3408 --- [restartedMain] c.l.m.p.ProductServiceApplication        : Starting ProductServiceApplication using Java 11.0.12 on DESKTOP-6L79JE3 with PID 3408 (D:\Work\event-driven-ms\product-service\target\classes started by Liem in D:\Work\event-driven-ms)
+2022-09-05 19:30:40.512 DEBUG 3408 --- [restartedMain] c.l.m.p.ProductServiceApplication        : Running with Spring Boot v2.7.3, Spring v5.3.22
+2022-09-05 19:30:40.512  INFO 3408 --- [restartedMain] c.l.m.p.ProductServiceApplication        : The following 1 profile is active: "dev"
+2022-09-05 19:30:41.599  INFO 16812 --- [restartedMain] c.l.m.p.PaymentServiceApplication        : Starting PaymentServiceApplication using Java 11.0.12 on DESKTOP-6L79JE3 with PID 16812 (D:\Work\event-driven-ms\payment-service\target\classes started by Liem in D:\Work\event-driven-ms)
+2022-09-05 19:30:41.600 DEBUG 16812 --- [restartedMain] c.l.m.p.PaymentServiceApplication        : Running with Spring Boot v2.7.3, Spring v5.3.22
+2022-09-05 19:30:41.601  INFO 16812 --- [restartedMain] c.l.m.p.PaymentServiceApplication        : The following 1 profile is active: "dev"
+2022-09-05 19:30:43.136  INFO 16128 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-05 19:30:43.137  INFO 16128 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-05 19:30:43.202  INFO 16128 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/user]   : Initializing Spring embedded WebApplicationContext
+2022-09-05 19:30:43.403  INFO 16128 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-09-05 19:30:43.462  INFO 16128 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-09-05 19:30:43.489  INFO 16128 --- [restartedMain] liquibase.database                       : Set default schema name to public
+2022-09-05 19:30:43.571  INFO 16128 --- [restartedMain] liquibase.lockservice                    : Successfully acquired change log lock
+2022-09-05 19:30:43.592  INFO 3408 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-05 19:30:43.592  INFO 3408 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-05 19:30:43.670  INFO 3408 --- [restartedMain] o.a.c.c.C.[.[localhost].[/product]       : Initializing Spring embedded WebApplicationContext
+2022-09-05 19:30:43.772  INFO 16128 --- [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2022-09-05 19:30:43.839  INFO 16128 --- [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2022-09-05 19:30:43.906  INFO 16128 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-05 19:30:43.908  INFO 3408 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-09-05 19:30:43.930  INFO 16128 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-09-05 19:30:43.962  INFO 3408 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-09-05 19:30:43.968  INFO 16812 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-09-05 19:30:43.968  INFO 16812 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.65]
+2022-09-05 19:30:43.988  INFO 3408 --- [restartedMain] liquibase.database                       : Set default schema name to public
+2022-09-05 19:30:44.034  INFO 16812 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/order]  : Initializing Spring embedded WebApplicationContext
+2022-09-05 19:30:44.056  INFO 3408 --- [restartedMain] liquibase.lockservice                    : Successfully acquired change log lock
+2022-09-05 19:30:44.094  INFO 16128 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-05 19:30:44.224  INFO 3408 --- [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2022-09-05 19:30:44.253  INFO 16812 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-09-05 19:30:44.295  INFO 3408 --- [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2022-09-05 19:30:44.301  INFO 16812 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-09-05 19:30:44.321  INFO 16812 --- [restartedMain] liquibase.database                       : Set default schema name to public
+2022-09-05 19:30:44.353  INFO 3408 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-05 19:30:44.372  INFO 16128 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.Dom4JToByteArrayConverter] is ignored. It seems to rely on a class that is not available in the class loader: org/dom4j/Document
+2022-09-05 19:30:44.372  INFO 3408 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-09-05 19:30:44.373  INFO 16128 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.InputStreamToDom4jConverter] is ignored. It seems to rely on a class that is not available in the class loader: org/dom4j/Document
+2022-09-05 19:30:44.375  INFO 16128 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.XomToStringConverter] is ignored. It seems to rely on a class that is not available in the class loader: nu/xom/Document
+2022-09-05 19:30:44.378  INFO 16128 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.InputStreamToXomConverter] is ignored. It seems to rely on a class that is not available in the class loader: nu/xom/Document
+2022-09-05 19:30:44.387  INFO 16812 --- [restartedMain] liquibase.lockservice                    : Successfully acquired change log lock
+2022-09-05 19:30:44.625  INFO 16812 --- [restartedMain] liquibase.changelog                      : Reading from public.databasechangelog
+2022-09-05 19:30:44.636  INFO 3408 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-05 19:30:44.673 TRACE 3408 --- [restartedMain] c.l.m.p.c.config.HandlerConfiguration    : Handler registration: com.liem.ms.productservice.command.handler.impl.ProductEventErrorHandler@19fa1ca2
+2022-09-05 19:30:44.707  INFO 16812 --- [restartedMain] liquibase.lockservice                    : Successfully released change log lock
+2022-09-05 19:30:44.764  INFO 16812 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-09-05 19:30:44.779  INFO 16812 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.PostgreSQL10Dialect
+2022-09-05 19:30:44.940  INFO 16812 --- [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-09-05 19:30:44.978  INFO 3408 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.Dom4JToByteArrayConverter] is ignored. It seems to rely on a class that is not available in the class loader: org/dom4j/Document
+2022-09-05 19:30:44.980  INFO 3408 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.InputStreamToDom4jConverter] is ignored. It seems to rely on a class that is not available in the class loader: org/dom4j/Document
+2022-09-05 19:30:44.981  INFO 3408 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.XomToStringConverter] is ignored. It seems to rely on a class that is not available in the class loader: nu/xom/Document
+2022-09-05 19:30:44.982  INFO 3408 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.InputStreamToXomConverter] is ignored. It seems to rely on a class that is not available in the class loader: nu/xom/Document
+2022-09-05 19:30:45.180 TRACE 3408 --- [restartedMain] c.l.m.p.c.c.InterceptorConfiguration     : Handler registration: com.liem.ms.productservice.command.interceptor.UpdateProductCommandInterceptor@47006b9a
+2022-09-05 19:30:45.188 TRACE 3408 --- [restartedMain] c.l.m.p.c.c.InterceptorConfiguration     : Handler registration: com.liem.ms.productservice.command.interceptor.CreateProductCommandInterceptor@66cf6af8
+2022-09-05 19:30:45.196 TRACE 3408 --- [restartedMain] c.l.m.p.c.c.InterceptorConfiguration     : Handler registration: com.liem.ms.productservice.command.interceptor.DeleteProductCommandInterceptor@63d499c5
+2022-09-05 19:30:45.628  INFO 16812 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.Dom4JToByteArrayConverter] is ignored. It seems to rely on a class that is not available in the class loader: org/dom4j/Document
+2022-09-05 19:30:45.629  INFO 16812 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.InputStreamToDom4jConverter] is ignored. It seems to rely on a class that is not available in the class loader: org/dom4j/Document
+2022-09-05 19:30:45.631  INFO 16812 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.XomToStringConverter] is ignored. It seems to rely on a class that is not available in the class loader: nu/xom/Document
+2022-09-05 19:30:45.632  INFO 16812 --- [restartedMain] o.a.serialization.ChainingConverter      : ContentTypeConverter of type [class org.axonframework.serialization.xml.InputStreamToXomConverter] is ignored. It seems to rely on a class that is not available in the class loader: nu/xom/Document
+2022-09-05 19:30:47.386  INFO 16128 --- [restartedMain] i.a.a.c.impl.AxonServerManagedChannel    : Requesting connection details from localhost:8124
+2022-09-05 19:30:47.419  INFO 16128 --- [restartedMain] i.a.a.c.impl.AxonServerManagedChannel    : Successfully connected to localhost:8124
+2022-09-05 19:30:47.421  INFO 16128 --- [restartedMain] i.a.a.connector.impl.ControlChannelImpl  : Connected instruction stream for context 'default'. Sending client identification
+2022-09-05 19:30:47.424  INFO 16128 --- [restartedMain] i.a.a.c.query.impl.QueryChannelImpl      : QueryChannel for context 'default' connected, 0 registrations resubscribed
+2022-09-05 19:30:47.426  INFO 16128 --- [restartedMain] i.a.a.c.query.impl.QueryChannelImpl      : Registered handler for query 'com.liem.ms.coreservice.queries.FetchUserPaymentDetailsQuery : com.liem.ms.coreservice.models.User' in context 'default'
+2022-09-05 19:30:47.464  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2022-09-05 19:30:47.465  INFO 16128 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:30:47.468  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2022-09-05 19:30:47.468  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2022-09-05 19:30:47.468  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2022-09-05 19:30:47.469  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2022-09-05 19:30:47.469  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2022-09-05 19:30:47.469  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2022-09-05 19:30:47.469  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2022-09-05 19:30:47.502  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2022-09-05 19:30:47.503  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2022-09-05 19:30:47.505  INFO 16128 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2022-09-05 19:30:47.506  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1662381047506 with initial instances count: 3
+2022-09-05 19:30:47.511  INFO 16128 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1662381047511, current=UP, previous=STARTING]
+2022-09-05 19:30:47.512  INFO 16128 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/user-service:b26bfc8f74eae78e9367a9ea59c4e881: registering service...
+2022-09-05 19:30:47.539  INFO 16128 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_USER-SERVICE/user-service:b26bfc8f74eae78e9367a9ea59c4e881 - registration status: 204
+2022-09-05 19:30:48.008  INFO 16128 --- [restartedMain] c.l.m.u.UserServiceApplication           : Started UserServiceApplication in 8.42 seconds (JVM running for 17231.678)
+2022-09-05 19:30:48.328  INFO 3408 --- [restartedMain] i.a.a.c.impl.AxonServerManagedChannel    : Requesting connection details from localhost:8124
+2022-09-05 19:30:48.350  INFO 3408 --- [restartedMain] i.a.a.c.impl.AxonServerManagedChannel    : Successfully connected to localhost:8124
+2022-09-05 19:30:48.352  INFO 3408 --- [restartedMain] i.a.a.connector.impl.ControlChannelImpl  : Connected instruction stream for context 'default'. Sending client identification
+2022-09-05 19:30:48.354  INFO 3408 --- [restartedMain] i.a.a.c.query.impl.QueryChannelImpl      : QueryChannel for context 'default' connected, 0 registrations resubscribed
+2022-09-05 19:30:48.355  INFO 3408 --- [restartedMain] i.a.a.c.query.impl.QueryChannelImpl      : Registered handler for query 'com.liem.ms.productservice.query.queries.FindProductQuery : java.util.List<com.liem.ms.productservice.query.entity.ProductEntity>' in context 'default'
+2022-09-05 19:30:48.393  INFO 16812 --- [restartedMain] i.a.a.c.impl.AxonServerManagedChannel    : Requesting connection details from localhost:8124
+2022-09-05 19:30:48.412  INFO 16812 --- [restartedMain] i.a.a.c.impl.AxonServerManagedChannel    : Successfully connected to localhost:8124
+2022-09-05 19:30:48.413  INFO 16812 --- [restartedMain] i.a.a.connector.impl.ControlChannelImpl  : Connected instruction stream for context 'default'. Sending client identification
+2022-09-05 19:30:48.416  INFO 16812 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : CommandChannel for context 'default' connected, 0 command handlers registered
+2022-09-05 19:30:48.416  INFO 16812 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : Registered handler for command 'com.liem.ms.coreservice.commands.ProcessPaymentCommand' in context 'default'
+2022-09-05 19:30:48.432  INFO 3408 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : CommandChannel for context 'default' connected, 0 command handlers registered
+2022-09-05 19:30:48.434  INFO 3408 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : Registered handler for command 'com.liem.ms.productservice.command.commands.product.CreateProductCommand' in context 'default'
+2022-09-05 19:30:48.436  INFO 3408 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : Registered handler for command 'com.liem.ms.coreservice.commands.ReserveProductCommand' in context 'default'
+2022-09-05 19:30:48.437  INFO 3408 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : Registered handler for command 'com.liem.ms.productservice.command.commands.product.SupplyProductCommand' in context 'default'
+2022-09-05 19:30:48.437  INFO 3408 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : Registered handler for command 'com.liem.ms.productservice.command.commands.product.UpdateProductCommand' in context 'default'
+2022-09-05 19:30:48.438  INFO 3408 --- [restartedMain] i.a.a.c.command.impl.CommandChannelImpl  : Registered handler for command 'com.liem.ms.productservice.command.commands.common.DeleteCommand' in context 'default'
+2022-09-05 19:30:48.467  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2022-09-05 19:30:48.468  INFO 3408 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:30:48.472  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2022-09-05 19:30:48.474  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2022-09-05 19:30:48.475  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2022-09-05 19:30:48.475  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2022-09-05 19:30:48.475  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2022-09-05 19:30:48.476  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2022-09-05 19:30:48.476  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2022-09-05 19:30:48.514  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2022-09-05 19:30:48.517  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2022-09-05 19:30:48.519  INFO 3408 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2022-09-05 19:30:48.521  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1662381048521 with initial instances count: 3
+2022-09-05 19:30:48.524  INFO 3408 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1662381048524, current=UP, previous=STARTING]
+2022-09-05 19:30:48.525  INFO 3408 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-SERVICE/product-service:208d82d97f79fd43a98ffcc1ec19edcc: registering service...
+2022-09-05 19:30:48.528  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2022-09-05 19:30:48.529  INFO 16812 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:30:48.533  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2022-09-05 19:30:48.534  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2022-09-05 19:30:48.534  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2022-09-05 19:30:48.535  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2022-09-05 19:30:48.535  INFO 16812 --- [EventProcessor[com.liem.ms.paymentservice.query.handler]-0] o.a.e.TrackingEventProcessor             : Worker assigned to segment Segment[0/0] for processing
+2022-09-05 19:30:48.535  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2022-09-05 19:30:48.536  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2022-09-05 19:30:48.536  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2022-09-05 19:30:48.544  INFO 16812 --- [EventProcessor[com.liem.ms.paymentservice.query.handler]-0] o.a.e.TrackingEventProcessor             : Using current Thread for last segment worker: TrackingSegmentWorker{processor=com.liem.ms.paymentservice.query.handler, segment=Segment[0/0]}
+2022-09-05 19:30:48.553  INFO 3408 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PRODUCT-SERVICE/product-service:208d82d97f79fd43a98ffcc1ec19edcc - registration status: 204
+2022-09-05 19:30:48.567  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2022-09-05 19:30:48.569  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2022-09-05 19:30:48.571  INFO 16812 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2022-09-05 19:30:48.573  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1662381048572 with initial instances count: 3
+2022-09-05 19:30:48.577  INFO 16812 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1662381048577, current=UP, previous=STARTING]
+2022-09-05 19:30:48.578  INFO 16812 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/payment-service:d267bc25175bbe2ab4e216a406a0140d: registering service...
+2022-09-05 19:30:48.587  INFO 16812 --- [EventProcessor[com.liem.ms.paymentservice.query.handler]-0] o.a.e.TrackingEventProcessor             : Fetched token: IndexTrackingToken{globalIndex=26} for segment: Segment[0/0]
+2022-09-05 19:30:48.601  INFO 16812 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_PAYMENT-SERVICE/payment-service:d267bc25175bbe2ab4e216a406a0140d - registration status: 204
+2022-09-05 19:30:48.952  INFO 3408 --- [restartedMain] c.l.m.p.ProductServiceApplication        : Started ProductServiceApplication in 9.171 seconds (JVM running for 19270.566)
+2022-09-05 19:30:48.971  INFO 16812 --- [restartedMain] c.l.m.p.PaymentServiceApplication        : Started PaymentServiceApplication in 8.265 seconds (JVM running for 17223.325)
+2022-09-05 19:35:47.471  INFO 16128 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:35:48.479  INFO 3408 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:35:48.539  INFO 16812 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:40:47.474  INFO 16128 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:40:48.481  INFO 3408 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:40:48.540  INFO 16812 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:45:47.476  INFO 16128 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:45:48.482  INFO 3408 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:45:48.541  INFO 16812 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:50:47.478  INFO 16128 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:50:48.482  INFO 3408 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:50:48.543  INFO 16812 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:55:47.479  INFO 16128 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:55:48.485  INFO 3408 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 19:55:48.545  INFO 16812 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 20:00:47.480  INFO 16128 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 20:00:48.486  INFO 3408 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-09-05 20:00:48.546  INFO 16812 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

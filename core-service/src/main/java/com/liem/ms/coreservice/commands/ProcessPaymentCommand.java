@@ -36,4 +36,9 @@ public class ProcessPaymentCommand implements Serializable {
    */
   private PaymentDetails paymentDetails;
 
+  /**
+   * The Schedule id.
+   */
+  protected String scheduleId;
+
 }

@@ -34,4 +34,9 @@ public class PaymentProcessedEvent implements Serializable {
    */
   private PaymentDetails paymentDetails;
 
+  /**
+   * The Schedule id.
+   */
+  protected String scheduleId;
+
 }

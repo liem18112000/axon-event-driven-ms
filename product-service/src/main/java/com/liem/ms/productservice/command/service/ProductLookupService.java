@@ -21,4 +21,13 @@ public interface ProductLookupService {
    * @return the boolean
    */
   boolean isUpdatedProductExistByName(String productId, String productName);
+
+  /**
+   * Is reserve sufficient boolean.
+   *
+   * @param productId        the product id
+   * @param reservedQuantity the reserved quantity
+   * @return the boolean
+   */
+  boolean isReserveSufficient(String productId, Integer reservedQuantity);
 }

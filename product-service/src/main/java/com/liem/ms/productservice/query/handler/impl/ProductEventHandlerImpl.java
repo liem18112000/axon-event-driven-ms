@@ -2,13 +2,14 @@ package com.liem.ms.productservice.query.handler.impl;
 
 import static com.liem.ms.productservice.core.config.AppConstants.PRODUCT_GROUP;
 
+import com.liem.ms.coreservice.events.ProductCancelReserveEvent;
 import com.liem.ms.coreservice.events.ProductReservedEvent;
 import com.liem.ms.productservice.command.event.common.DeletedEvent;
 import com.liem.ms.productservice.command.event.product.ProductCreatedEvent;
 import com.liem.ms.productservice.command.event.product.ProductUpdatedEvent;
 import com.liem.ms.productservice.core.handler.ProductEventHandler;
-import com.liem.ms.productservice.query.mapper.ProductEntityMapper;
 import com.liem.ms.productservice.query.entity.ProductEntity;
+import com.liem.ms.productservice.query.mapper.ProductEntityMapper;
 import com.liem.ms.productservice.query.repository.ProductRepository;
 import javax.persistence.EntityNotFoundException;
 import javax.validation.constraints.NotNull;
@@ -52,6 +53,20 @@ public class ProductEventHandlerImpl implements ProductEventHandler {
     log.trace("Product handle: {}", event);
     final var entity = this.getProductById(event.getId()).reserve(event);
     log.info("Reserve product quantity: {}", entity);
+    this.repository.save(entity);
+  }
+
+  /**
+   * On cancel reservation.
+   *
+   * @param event the event
+   */
+  @Override
+  public void onCancelReservation(final @NotNull ProductCancelReserveEvent event) {
+    log.trace("Product handle: {}", event);
+    final var entity = this.getProductById(
+        event.getProductId()).cancelReservation(event);
+    log.info("Cancel reserve product quantity: {}", entity);
     this.repository.save(entity);
   }
 
@@ -107,7 +122,9 @@ public class ProductEventHandlerImpl implements ProductEventHandler {
   protected void handleException(
       final @NotNull Exception exception) throws Exception {
     log.error(exception.getMessage());
-    throw exception;
+    if (exception instanceof EntityNotFoundException) {
+      throw exception;
+    }
   }
 
   /**

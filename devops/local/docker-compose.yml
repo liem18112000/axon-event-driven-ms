@@ -1,17 +1,17 @@
 version: '3.8'
 services:
-  gateway-database:
-    image: mysql:5.7
-    container_name: gateway-database
-    restart: always
-    networks:
-      - microservice
-    env_file: ./.env
-    environment:
-      - MYSQL_ROOT_PASSWORD=$GATEWAY_DATABASE_PASS
-      - MYSQL_DATABASE=$GATEWAY_DATABASE_NAME
-    ports:
-      - $GATEWAY_DATABASE_SERVER_PORT:$GATEWAY_DATABASE_DOCKER_PORT
+#  gateway-database:
+#    image: mysql:5.7
+#    container_name: gateway-database
+#    restart: always
+#    networks:
+#      - microservice
+#    env_file: ./.env
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=$GATEWAY_DATABASE_PASS
+#      - MYSQL_DATABASE=$GATEWAY_DATABASE_NAME
+#    ports:
+#      - $GATEWAY_DATABASE_SERVER_PORT:$GATEWAY_DATABASE_DOCKER_PORT
 
   product-database:
     container_name: product-database

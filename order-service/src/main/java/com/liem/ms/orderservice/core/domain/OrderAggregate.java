@@ -1,7 +1,11 @@
 package com.liem.ms.orderservice.core.domain;
 
+import com.liem.ms.orderservice.command.commands.ApproveOrderCommand;
 import com.liem.ms.orderservice.command.commands.CreateOrderCommand;
+import com.liem.ms.orderservice.command.commands.RejectOrderCommand;
+import com.liem.ms.orderservice.command.events.OrderApprovedEvent;
 import com.liem.ms.orderservice.command.events.OrderCreatedEvent;
+import com.liem.ms.orderservice.command.events.OrderRejectedEvent;
 import com.liem.ms.orderservice.core.model.OrderStatus;
 import javax.validation.constraints.NotNull;
 import lombok.Data;
@@ -55,31 +59,89 @@ public class OrderAggregate {
   private OrderStatus orderStatus;
 
   /**
+   * The Reject reason.
+   */
+  private String rejectReason;
+
+  /**
    * Instantiates a new Order aggregate.
    *
-   * @param createOrderCommand the create order command
+   * @param command the create order command
    */
   @CommandHandler
-  public OrderAggregate(final @NotNull CreateOrderCommand createOrderCommand) {
-    OrderCreatedEvent orderCreatedEvent = new OrderCreatedEvent();
-    BeanUtils.copyProperties(createOrderCommand, orderCreatedEvent);
-    AggregateLifecycle.apply(orderCreatedEvent);
+  public OrderAggregate(final @NotNull CreateOrderCommand command) {
+    log.trace("Create order command handle: {}", command);
+    var event = new OrderCreatedEvent();
+    BeanUtils.copyProperties(command, event);
+    AggregateLifecycle.apply(event);
   }
 
   /**
    * On.
    *
-   * @param orderCreatedEvent the order created event
+   * @param event the order created event
    */
   @EventSourcingHandler
-  public void on(final @NotNull OrderCreatedEvent orderCreatedEvent) {
-    this.orderId = orderCreatedEvent.getOrderId();
-    this.productId = orderCreatedEvent.getProductId();
-    this.userId = orderCreatedEvent.getUserId();
-    this.addressId = orderCreatedEvent.getAddressId();
-    this.quantity = orderCreatedEvent.getQuantity();
-    this.orderStatus = orderCreatedEvent.getOrderStatus();
+  public void on(final @NotNull OrderCreatedEvent event) {
+    log.trace("Order created event sourcing handle: {}", event);
+    this.orderId = event.getOrderId();
+    this.productId = event.getProductId();
+    this.userId = event.getUserId();
+    this.addressId = event.getAddressId();
+    this.quantity = event.getQuantity();
+    this.orderStatus = event.getOrderStatus();
   }
 
+  /**
+   * Approve.
+   *
+   * @param command the command
+   */
+  @CommandHandler
+  public void approve(final @NotNull ApproveOrderCommand command) {
+    log.trace("Approve order command handle: {}", command);
+    var event = new OrderApprovedEvent();
+    event.setOrderId(command.getOrderId());
+    AggregateLifecycle.apply(event);
+  }
+
+  /**
+   * On.
+   *
+   * @param event the event
+   */
+  @EventSourcingHandler
+  public void on(final @NotNull OrderApprovedEvent event) {
+    log.trace("Order approve event sourcing handle: {}", event);
+    this.setOrderId(event.getOrderId());
+    this.setOrderStatus(event.getOrderStatus());
+  }
+
+  /**
+   * Reject.
+   *
+   * @param command the command
+   */
+  @CommandHandler
+  public void reject(final @NotNull RejectOrderCommand command) {
+    log.trace("Reject order command handle: {}", command);
+    var event = new OrderRejectedEvent();
+    event.setOrderId(command.getOrderId());
+    event.setReason(command.getReason());
+    AggregateLifecycle.apply(event);
+  }
+
+  /**
+   * On.
+   *
+   * @param event the event
+   */
+  @EventSourcingHandler
+  public void on(final @NotNull OrderRejectedEvent event) {
+    log.trace("Order reject event sourcing handle: {}", event);
+    this.setOrderId(event.getOrderId());
+    this.setOrderStatus(event.getOrderStatus());
+    this.setRejectReason(event.getReason());
+  }
 
 }
