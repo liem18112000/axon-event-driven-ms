@@ -1,0 +1,1 @@
+kubectl create -f common-service/axon.yml && kubectl create -f common-service/eureka.yml

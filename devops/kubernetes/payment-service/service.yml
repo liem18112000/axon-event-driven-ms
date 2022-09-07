@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-deployment
+  labels:
+    name: payment-deployment
+    app: event-driven-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: payment-pod
+      app: event-driven-ms
+  template:
+    metadata:
+      name: payment-pod
+      labels:
+        name: payment-pod
+        app: event-driven-ms
+    spec:
+      containers:
+      - name: payment
+        image: liem18112000/axon-payment-service:1.1
+        ports:
+          - containerPort: 8080
+        env:
+          - name: "eureka.client.service-url.defaultZone"
+            value: "http://eureka-master:8761/eureka"
+          - name: "SERVER_PORT"
+            value: "8080"
+          - name: "DATABASE_HOST"
+            value: "payment-database"
+          - name: "DATABASE_PORT"
+            value: "5432"
+          - name: "DATABASE_PASS"
+            value: "postgres"
+          - name: "DATABASE_USER"
+            value: "postgres"
+          - name: "AXON_SERVER_HOST"
+            value: "axon-server"
+          - name: "AXON_SERVER_PORT"
+            value: "8124"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service
+  labels:
+    name: payment-service
+    app: event-driven-ms
+spec:
+  type: ClusterIP
+  selector:
+    name: payment-pod
+    app: event-driven-ms
+  ports:
+    - port: 8082
+      name: service
+      targetPort: 8082
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-service-endpoint
+  labels:
+    name: payment-service-endpoint
+    app: event-driven-ms
+spec:
+  type: LoadBalancer
+  selector:
+    name: payment-pod
+    app: event-driven-ms
+  ports:
+  - port: 8082
+    targetPort: 8082
+    nodePort: 30086
+

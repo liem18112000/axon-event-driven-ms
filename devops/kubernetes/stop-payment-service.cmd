@@ -1,0 +1,1 @@
+kubectl delete -f payment-service/database.yml && kubectl delete -f payment-service/service.yml

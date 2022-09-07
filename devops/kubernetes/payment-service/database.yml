@@ -1,0 +1,66 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: payment-database-deployment
+  labels:
+    name: payment-database-deployment
+    app: event-driven-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: payment-database
+      app: event-driven-ms
+  template:
+    metadata:
+      name: payment-database
+      labels:
+        name: payment-database
+        app: event-driven-ms
+    spec:
+      containers:
+        - name: payment-database
+          image: postgres:14.1-alpine
+          ports:
+            - containerPort: 5432
+          env:
+            - name: POSTGRES_USER
+              value: "postgres"
+            - name: POSTGRES_PASSWORD
+              value: "postgres"
+            - name: POSTGRES_DB
+              value: "payment"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-database # host name for service
+  labels:
+    name: payment-database-service
+    app: event-driven-ms
+spec:
+  type: ClusterIP
+  selector:
+    name: payment-database
+    app: event-driven-ms
+  ports:
+    - port: 5432
+      targetPort: 5432
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: payment-database-endpoint
+  labels:
+    name: payment-database-endpoint
+    app: event-driven-ms
+spec:
+  type: LoadBalancer
+  selector:
+    name: payment-database
+    app: event-driven-ms
+  ports:
+    - port: 5432
+      name: client
+      targetPort: 5432
+      nodePort: 30087

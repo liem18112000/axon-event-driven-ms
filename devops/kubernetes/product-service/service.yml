@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: product-deployment
+  labels:
+    name: product-deployment
+    app: event-driven-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: product-pod
+      app: event-driven-ms
+  template:
+    metadata:
+      name: product-pod
+      labels:
+        name: product-pod
+        app: event-driven-ms
+    spec:
+      containers:
+      - name: product
+        image: liem18112000/axon-product-service:1.1
+        ports:
+          - containerPort: 8080
+        env:
+          - name: "eureka.client.service-url.defaultZone"
+            value: "http://eureka-master:8761/eureka"
+          - name: "SERVER_PORT"
+            value: "8080"
+          - name: "DATABASE_HOST"
+            value: "product-database"
+          - name: "DATABASE_PORT"
+            value: "5432"
+          - name: "DATABASE_PASS"
+            value: "postgres"
+          - name: "DATABASE_USER"
+            value: "postgres"
+          - name: "AXON_SERVER_HOST"
+            value: "axon-server"
+          - name: "AXON_SERVER_PORT"
+            value: "8124"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service
+  labels:
+    name: product-service
+    app: event-driven-ms
+spec:
+  type: ClusterIP
+  selector:
+    name: product-pod
+    app: event-driven-ms
+  ports:
+    - port: 8080
+      name: service
+      targetPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service-endpoint
+  labels:
+    name: product-service-endpoint
+    app: event-driven-ms
+spec:
+  type: LoadBalancer
+  selector:
+    name: product-pod
+    app: event-driven-ms
+  ports:
+  - port: 8080
+    targetPort: 8080
+    nodePort: 30082
+

@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order-deployment
+  labels:
+    name: order-deployment
+    app: event-driven-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: order-pod
+      app: event-driven-ms
+  template:
+    metadata:
+      name: order-pod
+      labels:
+        name: order-pod
+        app: event-driven-ms
+    spec:
+      containers:
+      - name: order
+        image: liem18112000/axon-order-service:1.1
+        ports:
+          - containerPort: 8080
+        env:
+          - name: "eureka.client.service-url.defaultZone"
+            value: "http://eureka-master:8761/eureka"
+          - name: "SERVER_PORT"
+            value: "8080"
+          - name: "DATABASE_HOST"
+            value: "order-database"
+          - name: "DATABASE_PORT"
+            value: "5432"
+          - name: "DATABASE_PASS"
+            value: "postgres"
+          - name: "DATABASE_USER"
+            value: "postgres"
+          - name: "AXON_SERVER_HOST"
+            value: "axon-server"
+          - name: "AXON_SERVER_PORT"
+            value: "8124"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  labels:
+    name: order-service
+    app: event-driven-ms
+spec:
+  type: ClusterIP
+  selector:
+    name: order-pod
+    app: event-driven-ms
+  ports:
+    - port: 8081
+      name: service
+      targetPort: 8081
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service-endpoint
+  labels:
+    name: order-service-endpoint
+    app: event-driven-ms
+spec:
+  type: LoadBalancer
+  selector:
+    name: order-pod
+    app: event-driven-ms
+  ports:
+  - port: 8081
+    targetPort: 8081
+    nodePort: 30084
+

@@ -1,0 +1,1 @@
+kubectl delete -f product-service/database.yml && kubectl delete -f product-service/service.yml

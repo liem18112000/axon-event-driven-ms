@@ -1,0 +1,61 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: axon-server-deployment
+  labels:
+    name: axon-server-deployment
+    app: event-driven-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      name: axon-server
+      app: event-driven-ms
+  template:
+    metadata:
+      name: axon-server
+      labels:
+        name: axon-server
+        app: event-driven-ms
+    spec:
+      containers:
+        - name: axon-server
+          image: axoniq/axonserver:latest-dev
+          ports:
+            - containerPort: 8024
+            - containerPort: 8124
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: axon-server
+  labels:
+    name: axon-server-service
+    app: event-driven-ms
+spec:
+  type: ClusterIP
+  selector:
+    name: axon-server
+    app: event-driven-ms
+  ports:
+    - port: 8124
+      name: grpc
+      targetPort: 8124
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: axon-server-endpoint
+  labels:
+    name: axon-server-endpoint
+    app: event-driven-ms
+spec:
+  type: LoadBalancer
+  selector:
+    name: axon-server
+    app: event-driven-ms
+  ports:
+    - port: 8024
+      name: ui
+      targetPort: 8024
+      nodePort: 30080

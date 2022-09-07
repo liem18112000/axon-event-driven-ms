@@ -1,0 +1,1 @@
+kubectl create -f user-service/database.yml && kubectl create -f user-service/service.yml
