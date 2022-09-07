@@ -1,5 +1,7 @@
 package com.liem.ms.orderservice.core.domain;
 
+import static com.liem.ms.orderservice.core.config.SnapShotConfiguration.DEFAULT_SNAPSHOT_TRIGGER;
+
 import com.liem.ms.orderservice.command.commands.ApproveOrderCommand;
 import com.liem.ms.orderservice.command.commands.CreateOrderCommand;
 import com.liem.ms.orderservice.command.commands.RejectOrderCommand;
@@ -21,7 +23,7 @@ import org.springframework.beans.BeanUtils;
 /**
  * The type Order aggregate.
  */
-@Aggregate
+@Aggregate(snapshotTriggerDefinition = DEFAULT_SNAPSHOT_TRIGGER)
 @Data
 @Slf4j
 @NoArgsConstructor

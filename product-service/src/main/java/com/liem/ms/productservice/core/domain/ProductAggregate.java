@@ -1,5 +1,7 @@
 package com.liem.ms.productservice.core.domain;
 
+import static com.liem.ms.productservice.core.config.SnapShotConfiguration.DEFAULT_SNAPSHOT_TRIGGER;
+
 import com.liem.ms.coreservice.commands.CancelProductReserveCommand;
 import com.liem.ms.coreservice.commands.ReserveProductCommand;
 import com.liem.ms.coreservice.events.ProductCancelReserveEvent;
@@ -31,7 +33,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * The type Product aggregate.
  */
-@Aggregate
+@Aggregate(snapshotTriggerDefinition = DEFAULT_SNAPSHOT_TRIGGER)
 @Data
 @Slf4j
 @NoArgsConstructor
