@@ -1,5 +1,5 @@
 server:
-  port: ${SERVER_PORT:8082}
+  port: ${SERVER_PORT:8083}
   forward-headers-strategy: framework
   error:
     include-message: always
@@ -30,7 +30,7 @@ spring:
     name: ${APPLICATION_NAME:user-service}
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:25432}/${DATABASE_NAME:order}
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:${DATABASE_PORT:45432}/${DATABASE_NAME:user}
     username: ${DATABASE_USER:postgres}
     password: ${DATABASE_PASS:postgres}
   liquibase:

@@ -12,13 +12,6 @@ services:
 #      - MYSQL_DATABASE=$GATEWAY_DATABASE_NAME
 #    ports:
 #      - $GATEWAY_DATABASE_SERVER_PORT:$GATEWAY_DATABASE_DOCKER_PORT
-  nexus:
-    image: sonatype/nexus3
-    container_name: nexus
-    volumes:
-      - "nexus-data:/sonatype-work"
-    ports:
-      - "38081:8081"
 
   product-database:
     container_name: product-database
@@ -58,6 +51,19 @@ services:
       - POSTGRES_USER=$PAYMENT_DATABASE_USER
       - POSTGRES_DB=$PAYMENT_DATABASE_NAME
       - POSTGRES_PASSWORD=$PAYMENT_DATABASE_PASS
+
+  user-database:
+    container_name: user-database
+    image: postgres:14.1-alpine
+    env_file: ./.env
+    networks:
+      - microservice
+    ports:
+      - $USER_DATABASE_SERVER_PORT:$USER_DATABASE_DOCKER_PORT
+    environment:
+      - POSTGRES_USER=$USER_DATABASE_USER
+      - POSTGRES_DB=$USER_DATABASE_NAME
+      - POSTGRES_PASSWORD=$USER_DATABASE_PASS
 
   axon-server:
     container_name: axon-server
@@ -109,7 +115,7 @@ services:
 
   axon-order-service:
     container_name: axon-order-service
-    image: liem18112000/axon-product-service:1.1
+    image: liem18112000/axon-order-service:1.1
     depends_on:
       - order-database
       - axon-server
@@ -125,6 +131,48 @@ services:
       - DATABASE_PORT=$ORDER_DATABASE_DOCKER_PORT
       - DATABASE_PASS=$ORDER_DATABASE_PASS
       - DATABASE_USER=$ORDER_DATABASE_USER
+      - AXON_SERVER_HOST=$AXON_SERVER_HOST
+      - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
+
+  axon-payment-service:
+    container_name: axon-payment-service
+    image: liem18112000/axon-payment-service:1.1
+    depends_on:
+      - payment-database
+      - axon-server
+      - eureka-master
+    ports:
+      - $PAYMENT_SERVICE_SERVER_PORT:$PAYMENT_SERVICE_DOCKER_PORT
+    networks:
+      - microservice
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
+      - SERVER_PORT=$PAYMENT_SERVICE_DOCKER_PORT
+      - DATABASE_HOST=$PAYMENT_DATABASE_HOST
+      - DATABASE_PORT=$PAYMENT_DATABASE_DOCKER_PORT
+      - DATABASE_PASS=$PAYMENT_DATABASE_PASS
+      - DATABASE_USER=$PAYMENT_DATABASE_USER
+      - AXON_SERVER_HOST=$AXON_SERVER_HOST
+      - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
+
+  axon-user-service:
+    container_name: axon-user-service
+    image: liem18112000/axon-user-service:1.1
+    depends_on:
+      - user-database
+      - axon-server
+      - eureka-master
+    ports:
+      - $USER_SERVICE_SERVER_PORT:$USER_SERVICE_DOCKER_PORT
+    networks:
+      - microservice
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
+      - SERVER_PORT=$USER_SERVICE_DOCKER_PORT
+      - DATABASE_HOST=$USER_DATABASE_HOST
+      - DATABASE_PORT=$USER_DATABASE_DOCKER_PORT
+      - DATABASE_PASS=$USER_DATABASE_PASS
+      - DATABASE_USER=$USER_DATABASE_USER
       - AXON_SERVER_HOST=$AXON_SERVER_HOST
       - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
 

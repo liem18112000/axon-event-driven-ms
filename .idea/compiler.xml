@@ -14,7 +14,6 @@
         <module name="product-service" />
         <module name="order-service" />
         <module name="user-service" />
-        <module name="core-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
