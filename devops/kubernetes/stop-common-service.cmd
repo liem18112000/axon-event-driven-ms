@@ -1,0 +1,1 @@
+kubectl delete -f common-service/axon.yml && kubectl delete -f common-service/eureka.yml

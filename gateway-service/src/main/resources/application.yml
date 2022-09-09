@@ -12,37 +12,37 @@ logging:
       max-history: ${LOG_MAX_HISTORY:20}
   pattern:
     console: "%green(%d{${ISO8601}}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
+  level:
+    com.liem.ms: TRACE
+    org.springframework: ERROR
 spring:
   application:
     name: ${APPLICATION_NAME:gateway-service}
-  r2dbc:
-    url: r2dbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:13306}/${DATABASE_NAME:gateway}?serverTimezone=UTC&useLegacyDatetimeCode=false
-    username: ${DATABASE_USER:root}
-    password: ${DATABASE_PASS:root}
-    properties:
-      sslMode: DISABLED
-    pool:
-      enabled: true
-      initial-size: 22
-      max-size: 30
-      max-idle-time: 5m
-      validation-query: SELECT 1
-  liquibase:
-    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:13306}/${DATABASE_NAME:gateway}?serverTimezone=UTC&useLegacyDatetimeCode=false
-    user: ${DATABASE_USER:root}
-    password: ${DATABASE_PASS:root}
-    enabled: ${LIQUIBASE_ENABLED:true}
-    change-log: ${LIQUIBASE_CHANGELOG:classpath:/db/changelog-master.xml}
-    contexts: ${LIQUIBASE_CONTEXTS:default}
+#  r2dbc:
+#    url: r2dbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:13306}/${DATABASE_NAME:gateway}?serverTimezone=UTC&useLegacyDatetimeCode=false
+#    username: ${DATABASE_USER:root}
+#    password: ${DATABASE_PASS:root}
+#    properties:
+#      sslMode: DISABLED
+#    pool:
+#      enabled: true
+#      initial-size: 22
+#      max-size: 30
+#      max-idle-time: 5m
+#      validation-query: SELECT 1
+#  liquibase:
+#    url: jdbc:mysql://${DATABASE_HOST:localhost}:${DATABASE_PORT:13306}/${DATABASE_NAME:gateway}?serverTimezone=UTC&useLegacyDatetimeCode=false
+#    user: ${DATABASE_USER:root}
+#    password: ${DATABASE_PASS:root}
+#    enabled: ${LIQUIBASE_ENABLED:true}
+#    change-log: ${LIQUIBASE_CHANGELOG:classpath:/db/changelog-master.xml}
+#    contexts: ${LIQUIBASE_CONTEXTS:default}
   cloud:
     gateway:
-      globalcors:
-        add-to-simple-url-handler-mapping: true
-        cors-configurations:
-          '[/**]':
-            allowedOrigins: "*"
-            allowedMethods: GET, POST, PUT, DELETE, OPTIONS
-            allowedHeaders: Origin, Accept, Content-Type, X-Requested-With, X-XSRF-TOKEN, Authentication, Authorization, Version
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
 eureka:
   client:
     service-url:

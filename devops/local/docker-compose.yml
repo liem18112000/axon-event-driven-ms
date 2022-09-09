@@ -1,18 +1,5 @@
 version: '3.8'
 services:
-#  gateway-database:
-#    image: mysql:5.7
-#    container_name: gateway-database
-#    restart: always
-#    networks:
-#      - microservice
-#    env_file: ./.env
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=$GATEWAY_DATABASE_PASS
-#      - MYSQL_DATABASE=$GATEWAY_DATABASE_NAME
-#    ports:
-#      - $GATEWAY_DATABASE_SERVER_PORT:$GATEWAY_DATABASE_DOCKER_PORT
-
   product-database:
     container_name: product-database
     image: postgres:14.1-alpine
@@ -65,6 +52,18 @@ services:
       - POSTGRES_DB=$USER_DATABASE_NAME
       - POSTGRES_PASSWORD=$USER_DATABASE_PASS
 
+  security-database:
+    image: mysql:5.7
+    container_name: security-database
+    networks:
+      - microservice
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$SECURITY_DATABASE_PASS
+      - MYSQL_DATABASE=$SECURITY_DATABASE_NAME
+    ports:
+      - $SECURITY_DATABASE_SERVER_PORT:$SECURITY_DATABASE_DOCKER_PORT
+
   axon-server:
     container_name: axon-server
     image: axoniq/axonserver:latest-dev
@@ -92,9 +91,40 @@ services:
       - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
       - ACTIVE_PROFILE=default
 
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3.9-management-alpine
+    environment:
+      - RABBITMQ_DEFAULT_USER=$RABBITMQ_DEFAULT_USER
+      - RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS
+    ports:
+      - $RABBIT_PROTOCOL_SERVICE_PORT:$RABBIT_PROTOCOL_DOCKER_PORT
+      - $RABBIT_UI_MANAGEMENT_SERVICE_PORT:$RABBIT_UI_MANAGEMENT_DOCKER_PORT
+
+  redis:
+    container_name: redis
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - $REDIS_SERVER_PORT:$REDIS_DOCKER_PORT
+    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+
+  spring-gateway-service:
+    container_name: spring-gateway-service
+    image: liem18112000/spring-gateway-service:1.0
+    depends_on:
+      - eureka-master
+    ports:
+      - $GATEWAY_SERVICE_SERVER_PORT:$GATEWAY_SERVICE_DOCKER_PORT
+    networks:
+      - microservice
+    environment:
+      - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
+      - SERVER_PORT=$GATEWAY_SERVICE_DOCKER_PORT
+
   axon-product-service:
     container_name: axon-product-service
-    image: liem18112000/axon-product-service:1.1
+    image: liem18112000/axon-product-service:1.2
     depends_on:
       - product-database
       - axon-server
@@ -112,6 +142,10 @@ services:
       - DATABASE_USER=$PRODUCT_DATABASE_USER
       - AXON_SERVER_HOST=$AXON_SERVER_HOST
       - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
+      - ACTIVE_PROFILES=docker
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
 
   axon-order-service:
     container_name: axon-order-service
@@ -176,6 +210,57 @@ services:
       - AXON_SERVER_HOST=$AXON_SERVER_HOST
       - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
 
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
+    networks:
+      - microservice
+    ports:
+      - "9200:9200"
+    environment:
+      - "discovery.type=single-node"
+    volumes:
+      - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
+
+  logstash:
+    container_name: logstash
+    image: docker.elastic.co/logstash/logstash:7.2.0
+    networks:
+      - microservice
+    ports:
+      - "25826:25826"
+      - "5044:5044"
+    volumes:
+      - ./logstash/pipeline:/usr/share/logstash/pipeline:ro
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  kibana:
+    container_name: kibana
+    image: docker.elastic.co/kibana/kibana:7.2.0
+    networks:
+      - microservice
+    ports:
+      - "5601:5601"
+    restart: on-failure
+    depends_on:
+      - elasticsearch
+
+  filebeat:
+    container_name: filebeat
+    image: docker.elastic.co/beats/filebeat:7.2.0
+    networks:
+      - microservice
+    volumes:
+      - ./filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro # Configuration file
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro           # Docker logs
+      - /var/run/docker.sock:/var/run/docker.sock:ro                       # Additional information about containers
+      - ./filebeat/data:/usr/share/filebeat/data:rw                        # Persistence data
+    user: root                                                             # Allow access to log files and docker.sock
+    restart: on-failure
+    depends_on:
+      - logstash
 networks:
   microservice:
     driver: bridge
@@ -198,4 +283,3 @@ volumes:
       o: bind
       type: none
       device: ${PWD}/axon-server-se/config
-  nexus-data:
