@@ -4,6 +4,8 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 logs/
+/devops/local/elasticsearch/data
+/devops/local/filebeat/data
 
 ### STS ###
 .apt_generated

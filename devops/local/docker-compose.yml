@@ -52,17 +52,17 @@ services:
       - POSTGRES_DB=$USER_DATABASE_NAME
       - POSTGRES_PASSWORD=$USER_DATABASE_PASS
 
-  security-database:
-    image: mysql:5.7
-    container_name: security-database
-    networks:
-      - microservice
-    env_file: ./.env
-    environment:
-      - MYSQL_ROOT_PASSWORD=$SECURITY_DATABASE_PASS
-      - MYSQL_DATABASE=$SECURITY_DATABASE_NAME
-    ports:
-      - $SECURITY_DATABASE_SERVER_PORT:$SECURITY_DATABASE_DOCKER_PORT
+#  security-database:
+#    image: mysql:5.7
+#    container_name: security-database
+#    networks:
+#      - microservice
+#    env_file: ./.env
+#    environment:
+#      - MYSQL_ROOT_PASSWORD=$SECURITY_DATABASE_PASS
+#      - MYSQL_DATABASE=$SECURITY_DATABASE_NAME
+#    ports:
+#      - $SECURITY_DATABASE_SERVER_PORT:$SECURITY_DATABASE_DOCKER_PORT
 
   axon-server:
     container_name: axon-server
@@ -91,27 +91,27 @@ services:
       - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
       - ACTIVE_PROFILE=default
 
-  rabbitmq:
-    container_name: rabbitmq
-    image: rabbitmq:3.9-management-alpine
-    environment:
-      - RABBITMQ_DEFAULT_USER=$RABBITMQ_DEFAULT_USER
-      - RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS
-    ports:
-      - $RABBIT_PROTOCOL_SERVICE_PORT:$RABBIT_PROTOCOL_DOCKER_PORT
-      - $RABBIT_UI_MANAGEMENT_SERVICE_PORT:$RABBIT_UI_MANAGEMENT_DOCKER_PORT
+#  rabbitmq:
+#    container_name: rabbitmq
+#    image: rabbitmq:3.9-management-alpine
+#    environment:
+#      - RABBITMQ_DEFAULT_USER=$RABBITMQ_DEFAULT_USER
+#      - RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS
+#    ports:
+#      - $RABBIT_PROTOCOL_SERVICE_PORT:$RABBIT_PROTOCOL_DOCKER_PORT
+#      - $RABBIT_UI_MANAGEMENT_SERVICE_PORT:$RABBIT_UI_MANAGEMENT_DOCKER_PORT
 
-  redis:
-    container_name: redis
-    image: redis:6.2-alpine
-    restart: always
-    ports:
-      - $REDIS_SERVER_PORT:$REDIS_DOCKER_PORT
-    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
+#  redis:
+#    container_name: redis
+#    image: redis:6.2-alpine
+#    restart: always
+#    ports:
+#      - $REDIS_SERVER_PORT:$REDIS_DOCKER_PORT
+#    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
 
   spring-gateway-service:
     container_name: spring-gateway-service
-    image: liem18112000/spring-gateway-service:1.0
+    image: liem18112000/spring-gateway-service:1.2
     depends_on:
       - eureka-master
     ports:
@@ -121,6 +121,10 @@ services:
     environment:
       - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
       - SERVER_PORT=$GATEWAY_SERVICE_DOCKER_PORT
+      - ACTIVE_PROFILES=docker
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
 
   axon-product-service:
     container_name: axon-product-service
@@ -149,7 +153,7 @@ services:
 
   axon-order-service:
     container_name: axon-order-service
-    image: liem18112000/axon-order-service:1.1
+    image: liem18112000/axon-order-service:1.2
     depends_on:
       - order-database
       - axon-server
@@ -167,10 +171,14 @@ services:
       - DATABASE_USER=$ORDER_DATABASE_USER
       - AXON_SERVER_HOST=$AXON_SERVER_HOST
       - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
+      - ACTIVE_PROFILES=docker
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
 
   axon-payment-service:
     container_name: axon-payment-service
-    image: liem18112000/axon-payment-service:1.1
+    image: liem18112000/axon-payment-service:1.2
     depends_on:
       - payment-database
       - axon-server
@@ -188,10 +196,14 @@ services:
       - DATABASE_USER=$PAYMENT_DATABASE_USER
       - AXON_SERVER_HOST=$AXON_SERVER_HOST
       - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
+      - ACTIVE_PROFILES=docker
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
 
   axon-user-service:
     container_name: axon-user-service
-    image: liem18112000/axon-user-service:1.1
+    image: liem18112000/axon-user-service:1.2
     depends_on:
       - user-database
       - axon-server
@@ -209,6 +221,10 @@ services:
       - DATABASE_USER=$USER_DATABASE_USER
       - AXON_SERVER_HOST=$AXON_SERVER_HOST
       - AXON_SERVER_PORT=$AXON_GRPC_DOCKER_PORT
+      - ACTIVE_PROFILES=docker
+    labels:
+      collect_logs_with_filebeat: "true"
+      decode_log_event_to_json_object: "true"
 
   elasticsearch:
     container_name: elasticsearch
@@ -218,7 +234,7 @@ services:
     ports:
       - "9200:9200"
     environment:
-      - "discovery.type=single-node"
+      - discovery.type=single-node
     volumes:
       - ./elasticsearch/data:/usr/share/elasticsearch/data:rw
 

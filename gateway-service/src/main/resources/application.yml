@@ -1,21 +1,9 @@
 server:
   port: ${SERVER_PORT:5000}
   forward-headers-strategy: framework
-logging:
-  file:
-    path: ${LOG_PATH:logs}
-    name: ${logging.file.path}/${LOG_FILE:application}.log
-  logback:
-    rollingpolicy:
-      file-name-pattern: ${LOG_FILE:application}.%d{dd-MM-yyyy}.%i.log
-      max-file-size: ${LOG_MAX_FILE_SIZE:10MB}
-      max-history: ${LOG_MAX_HISTORY:20}
-  pattern:
-    console: "%green(%d{${ISO8601}}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
-  level:
-    com.liem.ms: TRACE
-    org.springframework: ERROR
 spring:
+  profiles:
+    active: ${ACTIVE_PROFILES:dev}
   application:
     name: ${APPLICATION_NAME:gateway-service}
 #  r2dbc:
