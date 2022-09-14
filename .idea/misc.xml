@@ -12,8 +12,15 @@
         <option value="$PROJECT_DIR$/order-service/pom.xml" />
         <option value="$PROJECT_DIR$/user-service/pom.xml" />
         <option value="$PROJECT_DIR$/payment-service/pom.xml" />
-        <option value="$PROJECT_DIR$/security-service/pom.xml" />
       </list>
+    </option>
+    <option name="ignoredFiles">
+      <set>
+        <option value="$PROJECT_DIR$/axon/order-service/pom.xml" />
+        <option value="$PROJECT_DIR$/axon/payment-service/pom.xml" />
+        <option value="$PROJECT_DIR$/axon/product-service/pom.xml" />
+        <option value="$PROJECT_DIR$/axon/user-service/pom.xml" />
+      </set>
     </option>
   </component>
   <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="openjdk-16" project-jdk-type="JavaSDK">

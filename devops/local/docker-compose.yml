@@ -52,18 +52,6 @@ services:
       - POSTGRES_DB=$USER_DATABASE_NAME
       - POSTGRES_PASSWORD=$USER_DATABASE_PASS
 
-#  security-database:
-#    image: mysql:5.7
-#    container_name: security-database
-#    networks:
-#      - microservice
-#    env_file: ./.env
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=$SECURITY_DATABASE_PASS
-#      - MYSQL_DATABASE=$SECURITY_DATABASE_NAME
-#    ports:
-#      - $SECURITY_DATABASE_SERVER_PORT:$SECURITY_DATABASE_DOCKER_PORT
-
   axon-server:
     container_name: axon-server
     image: axoniq/axonserver:latest-dev
@@ -90,24 +78,6 @@ services:
     environment:
       - eureka.client.service-url.defaultZone=http://eureka-master:8761/eureka
       - ACTIVE_PROFILE=default
-
-#  rabbitmq:
-#    container_name: rabbitmq
-#    image: rabbitmq:3.9-management-alpine
-#    environment:
-#      - RABBITMQ_DEFAULT_USER=$RABBITMQ_DEFAULT_USER
-#      - RABBITMQ_DEFAULT_PASS=$RABBITMQ_DEFAULT_PASS
-#    ports:
-#      - $RABBIT_PROTOCOL_SERVICE_PORT:$RABBIT_PROTOCOL_DOCKER_PORT
-#      - $RABBIT_UI_MANAGEMENT_SERVICE_PORT:$RABBIT_UI_MANAGEMENT_DOCKER_PORT
-
-#  redis:
-#    container_name: redis
-#    image: redis:6.2-alpine
-#    restart: always
-#    ports:
-#      - $REDIS_SERVER_PORT:$REDIS_DOCKER_PORT
-#    command: redis-server --save 20 1 --loglevel warning --requirepass eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81
 
   spring-gateway-service:
     container_name: spring-gateway-service

@@ -11,10 +11,9 @@
         <module name="twitter-to-kafka" />
         <module name="gateway-service" />
         <module name="discover-server" />
-        <module name="security-service" />
         <module name="product-service" />
-        <module name="order-service" />
         <module name="user-service" />
+        <module name="order-service" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
